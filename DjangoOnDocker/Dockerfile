@@ -1,10 +1,10 @@
 # Pull official base Image
 
-FROM python:3.9-alpine
+FROM python:3.9.6-alpine
 
 # Set work directory
 
-WORKDIR /usr/src/app
+WORKDIR /usr/src/DjangoOnDocker
 
 # Set environment variables
 ENV PYTHONDONTWRITEBYTECODE 1
