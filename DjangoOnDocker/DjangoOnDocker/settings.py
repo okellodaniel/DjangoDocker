@@ -1,3 +1,5 @@
+import os
+
 """
 Django settings for DjangoOnDocker project.
 
@@ -20,12 +22,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-92$l^7!mhuw7jrh#=s6nibrk1eo%mp_=up2ak(y&^%@*$uzdcd'
+# SECRET_KEY = 'django-insecure-92$l^7!mhuw7jrh#=s6nibrk1eo%mp_=up2ak(y&^%@*$uzdcd'
+SECRET_KEY = os.environ.get("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# DEBUG = True
+DEBUG = int(os.environ.get("DEBUG", default=0))
 
-ALLOWED_HOSTS = []
+# ALLOWED_HOSTS = []
+ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS").split(" ")
 
 
 # Application definition
