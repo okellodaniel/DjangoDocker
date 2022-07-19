@@ -10,8 +10,11 @@ WORKDIR /usr/src/DjangoOnDocker
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
-# install dependencies
-RUN pip install --upgrade pip
+# install psycopg2 dependencies
+RUN apk update && apk add postgresql-dev gcc python3-dev mus1-dev
+
+# install dependenies
+RUN pip3 install --upgrade pip
 COPY ./requirements.txt .
 RUN pip install -r requirements.txt
 
