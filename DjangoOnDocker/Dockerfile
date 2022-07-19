@@ -11,7 +11,7 @@ ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
 # install psycopg2 dependencies
-RUN apk update && apk add postgresql-dev gcc python3-dev mus1-dev
+RUN apk update && apk add postgresql-dev gcc python3-dev musl-dev
 
 # install dependenies
 RUN pip3 install --upgrade pip
