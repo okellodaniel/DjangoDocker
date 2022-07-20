@@ -18,5 +18,13 @@ RUN pip3 install --upgrade pip
 COPY ./requirements.txt .
 RUN pip install -r requirements.txt
 
+# Copy entrypoint.sh
+COPY ./entrypoint.sh .
+RUN sed -i 's/\r$//g' /user/src/DjangoOnDocker/entrypoint.sh
+RUN chmod +x /user/src/DjangoOnDocker/entrypoint.sh
+
 # copy source code
 COPY . .
+
+# run entrypoint.sh
+ENTRYPOINT ["/user/src/DjangoOnDocker/entrypoint.sh"]
