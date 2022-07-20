@@ -20,11 +20,11 @@ RUN pip install -r requirements.txt
 
 # Copy entrypoint.sh
 COPY ./entrypoint.sh .
-RUN sed -i 's/\r$//g' /user/src/DjangoOnDocker/entrypoint.sh
+RUN sed -i 's/\r$//g' /usr/src/DjangoOnDocker/entrypoint.sh
 RUN chmod +x /user/src/DjangoOnDocker/entrypoint.sh
 
 # copy source code
 COPY . .
 
 # run entrypoint.sh
-ENTRYPOINT ["/user/src/DjangoOnDocker/entrypoint.sh"]
+ENTRYPOINT ["/usr/src/DjangoOnDocker/entrypoint.sh"]
