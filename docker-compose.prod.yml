@@ -2,7 +2,9 @@ version: '3.8'
 
 services:
   web:
-    build: ./DjangoOnDocker
+    build: 
+      context: ./DjangoOnDocker
+      dockerfile: Dockerfile.prod
     command: gunicorn DjangoOnDocker.wsgi:application -b :8000
     ports:
       - 8000:8000

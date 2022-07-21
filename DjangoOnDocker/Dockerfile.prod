@@ -66,4 +66,4 @@ RUN chown -R DjangoOnDocker:DjangoOnDocker $APP_HOME
 USER DjangoOnDocker
 
 # Run entrypoint.sh
-ENTRYPOINT ["/usr/src/DjangoOnDocker/entrypoint.prod.sh"]
+ENTRYPOINT ["/usr/src/DjangoOnDocker/web/entrypoint.prod.sh"]
