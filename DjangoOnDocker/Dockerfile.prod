@@ -1,0 +1,69 @@
+###########
+# BUILDER #
+###########
+
+# Pull official base Image
+
+FROM python:3.9.6-alpine as builder
+
+# Set work directory
+WORKDIR /usr/src/DjangoOnDocker
+
+# Set environment variables
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
+
+# install psycopg2 dependencies
+RUN apk update && apk add postgresql-dev gcc python3-dev musl-dev
+
+# Lint
+RUN pip install --upgrade pip
+RUN pip install flake8==3.9.2
+COPY . .
+RUN flake8 --ignore=E501,F401 .
+
+# Install dependencies
+COPY ./requirements.txt .
+RUN pip wheel --no-cache-dir --no-deps --wheels-dir /usr/src/app/wheels -r requirements.txt
+
+#####################
+##### FINAL##########
+#####################
+
+# Pull official base Image
+FROM python:3.9.6-alpine
+
+# Set work directory for the app user
+RUN mkdir -p /home/DjangoOnDocker
+
+# Create the app User
+RUN addgroup -S DjangoOnDocker && adduser -S app -G app
+
+# Create the Appropriate directories
+ENV HOME=/home/DjangoOnDocker
+ENV APP_HOME=/home/DjangoOnDocker/web
+RUN mkdir $APP_HOME
+WORKDIR $APP_HOME
+
+# Install dependencies
+RUN apk update && apk add libpq
+COPY --from=builder /usr/src/DjangoOnDocker/wheels /wheels
+COPY --from=builder /usr/src/DjangoOnDocker/requirements.txt .
+RUN pip install --no-cache /wheels/*
+
+# Copy entrypoint.sh
+COPY ./entrypoint.prod.sh .
+RUN sed -i 's/\r$//g' $APP_HOME/entrypoint.prod.sh
+RUN chmod +x $APP_HOME/entrypoint.prod.sh
+
+# Copy project
+COPY . $APP_HOME
+
+# Chown all the files to the app user
+RUN chown -R DjangoOnDocker:DjangoOnDocker $APP_HOME
+
+# Change to the App user
+USER DjangoOnDocker
+
+# Run entrypoint.sh
+ENTRYPOINT ["/usr/src/DjangoOnDocker/entrypoint.prod.sh"]
