@@ -37,7 +37,7 @@ FROM python:3.9.6-alpine
 RUN mkdir -p /home/DjangoOnDocker
 
 # Create the app User
-RUN addgroup -S DjangoOnDocker && adduser -S app -G app
+RUN addgroup -S DjangoOnDocker && adduser -S DjangoOnDocker -G DjangoOnDocker
 
 # Create the Appropriate directories
 ENV HOME=/home/DjangoOnDocker
