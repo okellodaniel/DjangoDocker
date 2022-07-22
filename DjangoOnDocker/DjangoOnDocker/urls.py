@@ -20,7 +20,7 @@ from django.conf.urls.static import static
 from upload.views import image_upload
 
 urlpatterns = [
-    path("", image_upload, name="image_upload"),
+    path("", image_upload, name="upload"),
     path('admin/', admin.site.urls),
 ]
 

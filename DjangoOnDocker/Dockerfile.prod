@@ -45,6 +45,7 @@ ENV HOME=/home/DjangoOnDocker
 ENV APP_HOME=/home/DjangoOnDocker/web
 RUN mkdir $APP_HOME
 RUN mkdir $APP_HOME/staticfiles
+RUN mkdir $APP_HOME/mediafiles
 WORKDIR $APP_HOME
 
 # Install dependencies
