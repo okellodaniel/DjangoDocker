@@ -21,11 +21,11 @@ RUN apk update \
 RUN pip install --upgrade pip
 RUN pip install flake8==3.9.2
 COPY . .
-RUN flake8 --ignore=E501,F401 ./DjangoOnDocker
+RUN flake8 --ignore=E501,E402,E731,E231 . 
 
 # Install dependencies
 COPY ./requirements.txt .
-RUN pip wheel --no-cache-dir --no-deps --wheels-dir /usr/src/DjangoOnDocker/wheels -r requirements.txt
+RUN pip wheel --no-cache-dir --no-deps --wheel-dir /usr/src/DjangoOnDocker/wheels -r requirements.txt
 
 #####################
 ##### FINAL##########
@@ -67,4 +67,4 @@ RUN chown -R DjangoOnDocker:DjangoOnDocker $APP_HOME
 USER DjangoOnDocker
 
 # Run entrypoint.sh
-ENTRYPOINT ["/usr/src/DjangoOnDocker/web/entrypoint.prod.sh"]
+ENTRYPOINT ["/home/DjangoOnDocker/web/entrypoint.prod.sh"]
