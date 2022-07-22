@@ -21,7 +21,7 @@ RUN apk update \
 RUN pip install --upgrade pip
 RUN pip install flake8==3.9.2
 COPY . .
-RUN flake8 --ignore=E501,E402,E731,E231 . 
+RUN flake8 --ignore=E501,E401,E231 . 
 
 # Install dependencies
 COPY ./requirements.txt .

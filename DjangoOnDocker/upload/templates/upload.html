@@ -4,7 +4,7 @@
 <body>
     {% block content %}
     <form action="{%url "upload"%}" method="post" enctype="multipart/form-data">
-        {% csrf_token %}
+        {% comment %} {% csrf_token %} {% endcomment %}
         <input type="file" name="image_file">
         <input type="submit" value="submit">
     </form>
